@@ -1,0 +1,11 @@
+obj-m := wdt.o
+
+KDIR := /home/pairman/Downloads/linux-4.19.115
+
+CC := aarch64-linux-gnu-gcc
+
+all:
+	make -C $(KDIR) M=$(PWD) modules
+
+clean:
+	make -C $(KDIR) M=$(PWD) clean
