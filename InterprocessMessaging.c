@@ -17,7 +17,7 @@ int setlock(int i){
 
 // check msg lock value
 int chklock(){
-    return system("expr $(cat msg.lock) &> /dev/null")?0:1;
+	return system("expr $(cat msg.lock) &> /dev/null")?0:1;
 }
 
 
@@ -31,7 +31,7 @@ int setread(int i){
 
 // check msg read status
 int chkread(){
-    return system("expr $(cat msg.read) &> /dev/null")?0:1;
+	return system("expr $(cat msg.read) &> /dev/null")?0:1;
 }
 
 
