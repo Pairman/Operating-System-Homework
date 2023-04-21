@@ -41,9 +41,9 @@ int main(){
 	setlock(0);
 	setread(1);
 
-	// fetch and print process info
+	// create child process and print info
 	int RET=fork();
-	if(RET){ // parent only execution
+	if(RET){
 		printf("PARENT PID %d    CHILD PID %d\n\n",getpid(),RET);
 	}
 
