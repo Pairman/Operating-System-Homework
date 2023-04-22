@@ -109,12 +109,12 @@ void send(){
     fgets(msg,255,stdin);
     // command for mode switching
     if(strcmp(msg,"/mode\n")==0){
-        chkmode()?setmode(0):setmode(1);
+	    chkmode()?setmode(0):setmode(1);
     }
     // command for exit, only available in parent
     else if(RET&&strcmp(msg,"/exit\n")==0){
-        kill(RET,SIGKILL);
-        exit(0);
+	    kill(RET,SIGKILL);
+	    exit(0);
     }
     // write msg
     setread(0);
@@ -149,39 +149,38 @@ void recv(){
 int main(){
 	// initialize message file
 	setmode(1);
-    setlock(0);
+	setlock(0);
 	setread(1);
 
 	// create child process
-    RET=fork();
+	RET=fork();
 
 	// parent job
 	if(RET){
-        // print process info first
-        printf("PARENT PID %d    CHILD PID %d\n\n",getpid(),RET);
+        	// print process info first
+        	printf("PARENT PID %d    CHILD PID %d\n\n",getpid(),RET);
 		while(1){
-            // parent as the sender
-            if(chkmode()){
-                // wait if msg locked or unread
-                if(chklock()||!chkread()){
-                    sleep(1);
-                    continue;
-                }
-                else{
-                    // send message
-                    send();
-                }
-            }
-            // parent as the receiver
-            else{
-			// wait if msg is locked or read
-                if(chklock()||chkread()){
-                    sleep(1);
-                }
-                else{
-                    recv();
-                }
-            }
+            		// parent as the sender
+            		if(chkmode()){
+                		// wait if msg locked or unread
+                		if(chklock()||!chkread()){
+                    			sleep(1);
+                		}
+                		else{
+					// send message
+					send();
+				}
+			}
+			// parent as the receiver
+			else{
+				// wait if msg is locked or read
+				if(chklock()||chkread()){
+					sleep(1);
+				}
+				else{
+					recv();
+				}
+			}
 			sleep(1);
 		}
 	}
@@ -189,28 +188,28 @@ int main(){
 	else{
         sleep(1);
 		while(1){
-            // child as the receiver
-            if(chkmode()){
+            	// child as the receiver
+            		if(chkmode()){
 			// wait if msg is locked or read
-                if(chklock()||chkread()){
-                    sleep(1);
-                }
-                else{
-                    recv();
-                }
-            }
-            // child as the sender
-            else{
-                // wait if msg locked or unread
-                if(chklock()||!chkread()){
-                    sleep(1);
-                }
-                else{
-                    // send message
-                    send();
-                }
-            }
-			sleep(1);
-        }
+                		if(chklock()||chkread()){
+                    			sleep(1);
+                			}
+                		else{
+                			recv();
+            			}
+            		}
+            		// child as the sender
+            		else{
+                		// wait if msg locked or unread
+                		if(chklock()||!chkread()){
+                    			sleep(1);
+                		}
+                		else{
+                    			// send message
+                    			send();
+                		}
+            		}
+		sleep(1);
+        	}
 	}
 }
