@@ -64,7 +64,7 @@ int main(){
 			fgets(msg,255,stdin);
 			// command for exit
 			if(strcmp(msg,"/exit\n")==0){
-				kill(RET,SIGSEGV);
+				kill(RET,SIGKILL);
 				return 0;
 			}
 			// write msg
